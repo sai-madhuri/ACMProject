@@ -15,7 +15,6 @@ export default class AcmProject extends React.Component<IAcmProjectProps, {}> {
               <p className={styles.description}>{escape(this.props.description)}</p>
               <a href="https://aka.ms/spfx" className={styles.button}>
                 <span className={styles.label}>Learn more</span>
-                <h1>Dev Changed</h1>
               </a>
             </div>
           </div>
