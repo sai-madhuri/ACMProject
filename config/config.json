@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "acm-project-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/acmProject/AcmProjectWebPart.js",
+          "manifest": "./src/webparts/acmProject/AcmProjectWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "AcmProjectWebPartStrings": "lib/webparts/acmProject/loc/{locale}.js"
+  }
+}
