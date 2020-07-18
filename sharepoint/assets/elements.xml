@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+
+    <Field ID="{ad708af2-0d23-43e8-aced-9f6b90dab513}"
+            Name="CampaignDescription"
+            DisplayName="Campaign Description"
+            Type="Note"
+            Required="FALSE"
+            NumLines="6"           
+            RichText="FALSE"
+            Group="Campaign Columns" />
+
+    <ContentType ID="0x01003149ea7d45674d83a284c27d30a9a9b3" 
+            Name="ACMContentType" 
+            Group="ACM Content Type" 
+            Description="Content Type for ACM Project">
+        <FieldRefs>
+            <FieldRef ID="{ad708af2-0d23-43e8-aced-9f6b90dab513}" />
+        </FieldRefs>
+</ContentType> 
+    <ListInstance 
+            CustomSchema="schema.xml"
+            FeatureId="00bfea71-de22-43b2-a848-c05709900100"
+            Title="CampaignList" 
+            Description="Campaign List created using SharePoint Framework"
+            TemplateType="100"
+            Url="Lists/CampaignList">
+    </ListInstance>
+</Elements>

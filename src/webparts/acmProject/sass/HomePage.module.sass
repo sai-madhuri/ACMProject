@@ -1,0 +1,55 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+
+.cardBody
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    background-color: white
+    padding : 5% 5%
+    margin-top : 19%
+    margin-right : 5%
+   
+.productImage
+    padding-top : 5%
+    height : 200px
+    @include ms-Grid-col
+    @include ms-sm11 
+    @include ms-md11
+    @include ms-lg11
+    @include ms-xl11
+
+.productTitle
+    font-size : 20px
+    font-weight : bold
+    color : black
+    text-overflow: ellipsis
+    margin: 0
+    @include ms-Grid-col
+    @include ms-sm10
+    @include ms-md10
+    @include ms-lg10
+    @include ms-xl10
+
+.productDescription
+    font-size : 18px
+    color : black
+    font-weight : normal
+
+.resultsBody 
+    background-color : rgba(255,255,255,0.2)
+    display: grid
+    grid-template-columns: auto auto auto
+    grid-gap: 15px
+    
+.newCampaignButton
+    background-color: #1E48A4
+    color : white
+    border : 0
+    font-size: 20px
+    outline : none
+    margin-right: 5%
+    // margin-bottom: 15%
+    width: 25%
+    text-align: center
+    height : 50px
+    cursor : pointer
+    float : right
+   
