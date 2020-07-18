@@ -57,7 +57,6 @@ text-align: center;
   border-radius: 6px;
 }
 
-}
 .rowMargin{
   margin-top:12px !important;
   margin-bottom: 12px !important;
@@ -66,6 +65,14 @@ text-align: center;
   margin-top:25px !important;
   margin-bottom: 25px !important;
 }
+
+.fieldStyles{
+  font-weight: 600;
+  color:orange;
+}
+
+}
+
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;

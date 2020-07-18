@@ -12,6 +12,7 @@ export class Field {
     Name: string;
     type: FieldType;
     typevalues: string;
+    IsRequired:boolean;
 }
 export enum FieldType {
     Dropdown = "Dropdown",
@@ -24,13 +25,13 @@ export enum FieldType {
 export enum EnumField{
     Name="Name",
     type="type",
-    typevalues="typevalues"
+    typevalues="typevalues",
+    IsRequired="IsRequired"
 }
 
 export enum FormType{
     Requestor="Requestor",
     Donar="Donar",
     Name="Name",
-    Description="Description"
-
+    Description="Description",
 }

@@ -4,6 +4,7 @@ import { Appliacation, Field, FieldType, FormType, EnumField } from '../../../Mo
 import { Icon, Label, TextField, Dropdown, IDropdownOption } from 'office-ui-fabric-react';
 import { CommandBarButton, IContextualMenuProps, IIconProps, Stack, IStackStyles, PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
 import { Image, IImageProps, ImageFit } from 'office-ui-fabric-react/lib/Image';
+import { Checkbox, ICheckboxProps } from 'office-ui-fabric-react/lib/Checkbox';
 
 export interface IAdminComponentProps {
 
@@ -26,14 +27,17 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
         var field1 = new Field();
         field1.Name = "Name"
         field1.type = FieldType.Textbox;
+        field1.IsRequired = true;
 
         var field2 = new Field();
         field2.Name = "Mobile Number"
         field2.type = FieldType.Textbox;
+        field2.IsRequired = true;
 
         var field3 = new Field();
         field3.Name = "Donars"
         field3.type = FieldType.PeoplePicker;
+        field3.IsRequired = true;
 
         appliacation.RequestorFields = [];
         appliacation.RequestorFields.push(field1);
@@ -43,16 +47,18 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
         var donfield1 = new Field();
         donfield1.Name = "Name"
         donfield1.type = FieldType.Textbox;
+        donfield1.IsRequired = true;
 
         var donfield2 = new Field();
         donfield2.Name = "Mobile Number"
         donfield2.type = FieldType.Textbox;
+        donfield2.IsRequired = true;
 
         appliacation.DonarFeilds = [];
         appliacation.DonarFeilds.push(donfield1);
         appliacation.DonarFeilds.push(donfield2);
 
-        appliacation.Logo=[];
+        appliacation.Logo = [];
 
         for (let value in FieldType) {
             this.dropdownValues.push({ key: value, text: value })
@@ -112,10 +118,10 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
         var requestorFields = this.state.appliacation.RequestorFields;
         var DonarsFields = this.state.appliacation.DonarFeilds;
         if (type == FormType.Name) {
-            application.Name=event.target.value
+            application.Name = event.target.value
         }
         if (type == FormType.Description) {
-            application.Description=event.target.value
+            application.Description = event.target.value
         }
 
         else if (type == FormType.Requestor) {
@@ -128,6 +134,9 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
             }
             else if (fieldName == EnumField.typevalues) {
                 requestor.typevalues = event.target.value
+            }
+            else if (fieldName == EnumField.IsRequired) {
+                requestor.IsRequired = event.target.value
             }
             requestorFields[key] = requestor;
         }
@@ -142,6 +151,9 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
             }
             else if (fieldName == EnumField.typevalues) {
                 donar.typevalues = event.target.value
+            }
+            else if (fieldName == EnumField.IsRequired) {
+                donar.IsRequired = event.target.value
             }
             DonarsFields[key] = donar
         }
@@ -166,10 +178,10 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
             if (this.file.length <= 0)
                 this.file = [];
         }
-     var application={... this.state.appliacation};
-     application.Logo=this.file
+        var application = { ... this.state.appliacation };
+        application.Logo = this.file
         this.setState({
-            appliacation:application
+            appliacation: application
 
         });
 
@@ -196,7 +208,7 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                     <div className={styles.bodyContainer}>
                         <div className={styles.fieldMargin + " ms-Grid-row "}>
                             <div className={styles.Requestors + " ms-Grid-col  ms-sm3"}>Name :</div>
-                            <div className="ms-Grid-col ms-sm5"> <TextField className={styles.borderRadius} value={this.state.appliacation.Name} required  onChange={(e) => this.onChangeValue(0, '', e, FormType.Name)} /></div>
+                            <div className="ms-Grid-col ms-sm5"> <TextField className={styles.borderRadius} value={this.state.appliacation.Name} required onChange={(e) => this.onChangeValue(0, '', e, FormType.Name)} /></div>
                         </div>
                         <div className={styles.fieldMargin + " ms-Grid-row "}>
                             <div className={styles.Requestors + " ms-Grid-col  ms-sm3"}>Description :</div>
@@ -207,7 +219,7 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                             <div className={styles.Requestors + " ms-Grid-col  ms-sm3"}>Logo :</div>
                             <div className="ms-Grid-col ms-sm5">
                                 {
-                                    this.state.appliacation&&  this.state.appliacation.Logo&&  this.state.appliacation.Logo.length > 0 ? (<Image src={URL.createObjectURL( this.state.appliacation.Logo[0])} />) : <div>  <input id="fileuploader" type="file" onChange={e => this.checkFileType(e.target.files)} className="d-none" /></div>
+                                    this.state.appliacation && this.state.appliacation.Logo && this.state.appliacation.Logo.length > 0 ? (<Image width={100}  height={100}  src={URL.createObjectURL(this.state.appliacation.Logo[0])} />) : <div>  <input id="fileuploader" type="file" onChange={e => this.checkFileType(e.target.files)} className="d-none" /></div>
 
                                 }
                             </div>
@@ -220,6 +232,22 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                             <div>
                                 <span className={styles.Requestors}>Donar Template :</span>
                             </div>
+
+                            <div className={styles.rowMargin + " ms-Grid-row "}>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Name
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Type
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Type Category
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm2"}>
+                                    Is Required
+                                    </div>
+                            </div>
+
 
                             {
                                 this.state && this.state.appliacation && this.state.appliacation.DonarFeilds && this.state.appliacation.DonarFeilds.map((field, key) => {
@@ -237,7 +265,11 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                                                         onChanged={(e) => this.onChangeValue(key, EnumField.type, e, FormType.Donar)}
                                                     />
                                                 </div>
-                                                <div className="ms-Grid-col  ms-sm4"> <TextField disabled={disbaledropdown} onChange={(e) => this.onChangeValue(key, EnumField.typevalues, e, FormType.Donar)} /></div>
+                                                <div className="ms-Grid-col  ms-sm3"> <TextField disabled={disbaledropdown} onChange={(e) => this.onChangeValue(key, EnumField.typevalues, e, FormType.Donar)} /></div>
+
+                                                <div className="ms-Grid-col  ms-sm1">
+                                                    <Checkbox checked={field.IsRequired} disabled={key < 2} onChange={(e) => this.onChangeValue(key, EnumField.IsRequired, e, FormType.Donar)} />
+                                                </div>
                                                 {
                                                     key > 1 ?
                                                         <div className={styles.deleteIcon + " ms-Grid-col  ms-sm1"}><Icon iconName="Delete" onClick={() => this.onDelete(FormType.Donar, key)} /> </div>
@@ -263,6 +295,20 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                             <div >
                                 <span className={styles.Requestors}>Requestor Template :</span>
                             </div>
+                            <div className={styles.rowMargin + " ms-Grid-row "}>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Name
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Type
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm3"}>
+                                    Field Type Category
+                                    </div>
+                                <div className={styles.fieldStyles + " ms-Grid-col ms-sm2"}>
+                                    Is Required
+                                    </div>
+                            </div>
 
                             {
                                 this.state && this.state.appliacation && this.state.appliacation.RequestorFields && this.state.appliacation.RequestorFields.map((field, key) => {
@@ -280,7 +326,10 @@ export default class AdminComponent extends React.Component<IAdminComponentProps
                                                         onChanged={(e) => this.onChangeValue(key, EnumField.type, e, FormType.Requestor)}
                                                     />
                                                 </div>
-                                                <div className="ms-Grid-col  ms-sm4"> <TextField disabled={key < 3 || field.type == FieldType.Textbox || field.type == FieldType.TextArea || field.type == FieldType.PeoplePicker} value={field.typevalues} onChange={(e) => this.onChangeValue(key, EnumField.typevalues, e, FormType.Requestor)} /></div>
+                                                <div className="ms-Grid-col  ms-sm3"> <TextField disabled={key < 3 || field.type == FieldType.Textbox || field.type == FieldType.TextArea || field.type == FieldType.PeoplePicker} value={field.typevalues} onChange={(e) => this.onChangeValue(key, EnumField.typevalues, e, FormType.Requestor)} /></div>
+                                                <div className="ms-Grid-col  ms-sm1">
+                                                    <Checkbox checked={field.IsRequired} disabled={key < 3} onChange={(e) => this.onChangeValue(key, EnumField.IsRequired, e, FormType.Requestor)} />
+                                                </div>
                                                 {
                                                     key > 2 ?
                                                         <div className={styles.deleteIcon + " ms-Grid-col  ms-sm1"}><Icon iconName="Delete" onClick={() => this.onDelete(FormType.Requestor, key)} /> </div>
