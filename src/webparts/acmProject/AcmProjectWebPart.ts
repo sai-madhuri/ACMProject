@@ -19,11 +19,11 @@ export interface IAcmProjectWebPartProps {
 export default class AcmProjectWebPart extends BaseClientSideWebPart<IAcmProjectWebPartProps> {
 
   public async render(): Promise<void> {
-    await sp.site.rootWeb.ensureUser(this.context.pageContext.user.email).then(result => {
-      localStorage.setItem("currentUser", JSON.stringify(result.data));
-    });
+    // await sp.site.rootWeb.ensureUser(this.context.pageContext.user.email).then(result => {
+    //   localStorage.setItem("currentUser", JSON.stringify(result.data));
+    // });
     const element: React.ReactElement<IAcmProjectProps> = React.createElement(
-      HomePageComponent,
+      AcmProject,
       {
         description: this.properties.description
       }
