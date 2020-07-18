@@ -6,20 +6,24 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-
+import { sp } from "@pnp/sp/presets/all";
 import * as strings from 'AcmProjectWebPartStrings';
 import AcmProject from './components/AcmProject';
 import { IAcmProjectProps } from './components/IAcmProjectProps';
+import HomePageComponent from "./components/HomePage";
 
 export interface IAcmProjectWebPartProps {
   description: string;
 }
 
-export default class AcmProjectWebPart extends BaseClientSideWebPart <IAcmProjectWebPartProps> {
+export default class AcmProjectWebPart extends BaseClientSideWebPart<IAcmProjectWebPartProps> {
 
-  public render(): void {
+  public async render(): Promise<void> {
+    await sp.site.rootWeb.ensureUser(this.context.pageContext.user.email).then(result => {
+      localStorage.setItem("currentUser", JSON.stringify(result.data));
+    });
     const element: React.ReactElement<IAcmProjectProps> = React.createElement(
-      AcmProject,
+      HomePageComponent,
       {
         description: this.properties.description
       }
