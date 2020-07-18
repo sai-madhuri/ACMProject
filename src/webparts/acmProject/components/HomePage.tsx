@@ -1,17 +1,40 @@
 import * as React from "react";
 import { sp, IItem, IAttachmentInfo } from "@pnp/sp/presets/all";
-import styles from "../sass/HomePage.module.sass";
+import styles from "./Homapage.module.scss";
 import { getMyDonationOffers } from "../services/DashBoardService";
+import { Appliacation } from '../../Models/Campaign'
+import { Image, IImageProps, ImageFit } from 'office-ui-fabric-react/lib/Image';
+import { Icon, Label, TextField, Dropdown, IDropdownOption } from 'office-ui-fabric-react';
+export interface IHomePageState {
+    campaignsList: Array<Appliacation>
+}
 
-export default class HomePageComponent extends React.Component<any, any>{
+export default class HomePageComponent extends React.Component<any, IHomePageState>{
     constructor(props) {
         super(props);
-        this.state = { campaignsList: [], imageUrl: "" };
-        this.getAllCampaigns = this.getAllCampaigns.bind(this);
+
+        //  this.getAllCampaigns = this.getAllCampaigns.bind(this);
+        var app1: Appliacation = new Appliacation();
+        app1.Name = "Blood Donation";
+        var app2: Appliacation = new Appliacation();
+        app2.Name = "Food Donation";
+        var app3: Appliacation = new Appliacation();
+        app3.Name = "Book Donation";
+        var app4: Appliacation = new Appliacation();
+        app4.Name = "Cloth Donation";
+        var app5: Appliacation = new Appliacation();
+        app5.Name = "Bicycle Donation";
+        var campaignsList: Array<Appliacation> = [];
+        campaignsList.push(app1);
+        campaignsList.push(app2);
+        campaignsList.push(app3);
+        campaignsList.push(app4);
+        campaignsList.push(app5);
+        this.state = { campaignsList: campaignsList };
     }
 
     componentDidMount() {
-        this.getAllCampaigns();
+        // this.getAllCampaigns();
     }
 
     async getAllCampaigns() {
@@ -89,37 +112,49 @@ export default class HomePageComponent extends React.Component<any, any>{
     }
 
     render() {
-        let availableCampaigns = this.state.campaignsList.map(campaign => {
-            // let imageUrl: string = this.getImageRelativeUrl(campaign).then(result => {
-            //     return result;
-            // })
-            return (
-                <div className={styles.cardBody}>
-                    <div className="ms-Grid-row">
-                        <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12 ms-xl12">
-                            <div>
-                                <img src={"imageUrl"} alt="product-image" className={styles.productImage} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="ms-Grid-row">
-                        <p className={styles.productTitle}>{this.getShortTitle(campaign.Title)}</p>
-                    </div>
-                    <div className="ms-Grid-row">
-                        <p className={styles.productDescription}>{this.getShortDescription(campaign.CampaignDescription)}</p>
-                    </div>
-                </div>)
-        }
-        )
 
         return (
-            <div>
-                <input type="button" className={styles.newCampaignButton} value="++ New Campaign" />
-                <div className={styles.resultsBody}>
-                    {availableCampaigns}
-                    {availableCampaigns}
+            <div className={styles.acmProject}>
+                <div className={styles.container}>
+                    <div className={styles.header + "  ms-Grid-row "}>
+                        <span> Campaigns </span>
+                    </div>
+                    <div className={styles.bodyContainer}>
+                        <div className={"  ms-Grid-row " + styles.campaigns}>
+                            {this.state.campaignsList.map((campain, key) => {
+                                return (
+                                    <div key={key} className={"  ms-Grid-col ms-sm3 " + styles.campaign}>
+                                        <div className={styles.innerCampaign}>
+                                            <div>
+                                                <Image height={100} src="https://www.w3schools.com/html/pic_trulli.jpg" />
+                                            </div>
+                                            <div className={styles.logoName}>
+                                                {campain.Name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                           <div  className={"  ms-Grid-col ms-sm3 " + styles.campaign}>
+                                        <div className={styles.innerCampaign}>
+                                            <div className={styles.AddIcon}>
+                                                <Icon iconName="Add" />
+                                            </div>
+                                            <div className={styles.logoName}>
+                                                Add New Campain
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
+
         )
+
+
+
     }
 }
